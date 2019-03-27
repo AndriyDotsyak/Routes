@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Routes Lviv</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_switch_houses">SwitchHouses</string>
+</resources>
