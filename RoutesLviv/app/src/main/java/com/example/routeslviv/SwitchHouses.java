@@ -1,6 +1,10 @@
 package com.example.routeslviv;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +19,8 @@ public class SwitchHouses extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_switch_houses);
         ButterKnife.bind(this);
+
+        checkLocationPermission();
     }
 
     @OnClick({R.id.btn_makeIT, R.id.btn_avtoStation, R.id.btn_railwayStation})
@@ -41,6 +47,19 @@ public class SwitchHouses extends AppCompatActivity {
                 intent.putExtra("house", "Залізничний вокзал");
                 startActivity(intent);
                 break;
+        }
+    }
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                ActivityCompat.requestPermissions(SwitchHouses.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+            return false;
+        } else {
+            return true;
         }
     }
 }
